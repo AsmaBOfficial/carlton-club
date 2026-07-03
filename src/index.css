@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0B0907;
+  --color-baize: #1B5C3C;
+  --color-baizeDark: #123F29;
+  --color-brass: #B8932E;
+  --color-brassLight: #D4B15C;
+  --color-cream: #EAE4D9;
+  --color-paper: #FBF9F4;
+
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "DM Sans", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FBF9F4;
+  color: #0B0907;
+  font-family: 'DM Sans', sans-serif;
+}
+
+::selection {
+  background-color: #B8932E;
+  color: #0B0907;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,147,46,0.8), transparent);
+}
+
+/* ---- Signature surface: "cushion rail" panel ----
+   The one recurring surface language for the whole site, in place of
+   generic rounded-2xl / shadow-lg / hover-lift cards. It borrows the
+   physical vocabulary of the table itself: a flat cloth-coloured face,
+   a hard brass rail along the top edge (like the cushion rail on a
+   table), and square-ish corners rather than soft app-style radii.
+   On interaction, the rail brightens and draws inward from both ends,
+   like a strip of chalk catching the light — no translate, no shadow. */
+.rail-panel {
+  position: relative;
+  border: 1px solid rgba(184, 147, 46, 0.22);
+  border-top: none;
+  border-radius: 2px;
+  background: var(--color-paper);
+  overflow: hidden;
+}
+
+.rail-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-brass), var(--color-brassLight) 50%, var(--color-brass));
+  transform: scaleX(0.18);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rail-panel:hover::before,
+.rail-panel:focus-within::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail-panel::before {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
